@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { getAllServices, SITE_URL } from "@/lib/data";
 import { servicePageSchema } from "@/lib/schema";
 import ServicosClient from "@/components/ServicosClient";
@@ -50,9 +49,7 @@ export default function ServicosPage() {
 
       {/* Services list */}
       <section className="py-16 px-4 max-w-5xl mx-auto">
-        <Suspense fallback={<div className="text-slate-400 text-center py-12">Carregando...</div>}>
-          <ServicosClient services={services} />
-        </Suspense>
+        <ServicosClient services={services} />
       </section>
 
       {/* CTA */}

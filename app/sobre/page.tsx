@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/data";
 
@@ -70,6 +71,16 @@ export default function SobrePage() {
       <section className="relative bg-[#0f172a] text-white overflow-hidden">
         <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
+          <div className="flex justify-center mb-6">
+            <Image
+              src="https://static.wixstatic.com/media/5b09da_ae7d684af51744649a2b895899b32111~mv2.jpg"
+              alt="Maurício Kenyatta"
+              width={120}
+              height={120}
+              className="rounded-full object-cover border-4 border-blue-500 shadow-xl"
+              unoptimized
+            />
+          </div>
           <div className="inline-flex items-center gap-2 bg-[#1e293b] border border-[#334155] rounded-full px-4 py-1.5 mb-6">
             <span className="text-blue-300 text-xs font-medium tracking-wide uppercase">
               Doutorando UnB · Docente · Pesquisador

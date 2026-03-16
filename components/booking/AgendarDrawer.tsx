@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Service } from "@/lib/types";
+import type { Service, ServiceVariation } from "@/lib/types";
 import {
   buildMailtoLink,
   buildWhatsAppMessage,
@@ -22,7 +22,7 @@ const NIVEL_OPTIONS = [
   "Graduação",
   "Mestrado",
   "Doutorado",
-  "Profissional",
+  "Especialização",
   "Outro",
 ];
 
@@ -35,8 +35,8 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
   const [telefone, setTelefone] = useState("");
   const [nivel, setNivel] = useState("");
   const [tema, setTema] = useState("");
+  const [selectedVariation, setSelectedVariation] = useState<ServiceVariation | null>(null);
 
-  // Reset when service changes
   useEffect(() => {
     if (service) {
       setStep(1);
@@ -47,10 +47,10 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
       setTelefone("");
       setNivel("");
       setTema("");
+      setSelectedVariation(service.variations?.[0] ?? null);
     }
   }, [service]);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -59,7 +59,6 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
 
-  // Prevent body scroll when drawer is open
   useEffect(() => {
     if (service) {
       document.body.style.overflow = "hidden";
@@ -73,6 +72,9 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
 
   if (!service) return null;
 
+  // Use variation price if selected, else service base price
+  const displayPrice = selectedVariation?.priceLabel ?? service.priceLabel;
+
   const canProceedStep1 = selectedDate !== null;
   const canProceedStep2 = selectedTime !== null;
   const canSubmitWA = nome.trim().length > 0;
@@ -82,13 +84,17 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
     nome,
     email: email || undefined,
     telefone: telefone || undefined,
-    nivel: nivel || undefined,
+    nivel: nivel || (selectedVariation ? selectedVariation.label : undefined),
     tema: tema || undefined,
   };
 
   function handleWhatsApp() {
     if (!service || !selectedDate || !selectedTime || !canSubmitWA) return;
-    const msg = buildWhatsAppMessage(service, selectedDate, selectedTime, bookingFields);
+    // Temporarily override priceLabel in message if variation is selected
+    const svc = selectedVariation
+      ? { ...service, priceLabel: selectedVariation.priceLabel }
+      : service;
+    const msg = buildWhatsAppMessage(svc, selectedDate, selectedTime, bookingFields);
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
     onClose();
@@ -96,7 +102,10 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
 
   function handleEmail() {
     if (!service || !selectedDate || !selectedTime || !canSubmitEmail) return;
-    const mailto = buildMailtoLink(service, selectedDate, selectedTime, bookingFields);
+    const svc = selectedVariation
+      ? { ...service, priceLabel: selectedVariation.priceLabel }
+      : service;
+    const mailto = buildMailtoLink(svc, selectedDate, selectedTime, bookingFields);
     window.location.href = mailto;
   }
 
@@ -140,7 +149,7 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
             </button>
           </div>
           <div className="flex items-center gap-3 text-sm">
-            <span className="text-blue-400 font-semibold">{service.priceLabel}</span>
+            <span className="text-blue-400 font-semibold">{displayPrice}</span>
             <span className="text-slate-500">·</span>
             <span className="text-slate-400">{service.duration} min</span>
           </div>
@@ -172,6 +181,32 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
         <div className="flex-1 overflow-y-auto p-5">
           {step === 1 && (
             <div>
+              {/* Variation selector — show if service has pricing plans */}
+              {service.hasVariations && service.variations && service.variations.length > 0 && (
+                <div className="mb-5">
+                  <p className="text-sm font-semibold text-slate-700 mb-2">Selecione seu nível:</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {service.variations.map((v) => (
+                      <button
+                        key={v.label}
+                        type="button"
+                        onClick={() => setSelectedVariation(v)}
+                        className={`flex flex-col items-center py-2.5 px-2 rounded-xl border-2 text-xs font-semibold transition-all ${
+                          selectedVariation?.label === v.label
+                            ? "border-blue-600 bg-blue-50 text-blue-700"
+                            : "border-gray-200 text-slate-600 hover:border-blue-300"
+                        }`}
+                      >
+                        <span className="font-extrabold text-sm">{v.label}</span>
+                        <span className={`font-bold mt-0.5 ${selectedVariation?.label === v.label ? "text-blue-600" : "text-slate-400"}`}>
+                          {v.priceLabel}
+                        </span>
+                        <span className="text-slate-400 mt-0.5 text-center leading-tight">{v.description}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
               <CalendarPicker
                 selectedDate={selectedDate}
                 onSelect={(d) => {
@@ -214,8 +249,10 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
                     Resumo do agendamento
                   </div>
                   <div className="text-slate-500">
-                    {service.name} · {formatBookingDateShort(selectedDate)} às{" "}
-                    {selectedTime}
+                    {service.name}
+                    {selectedVariation && <span className="text-blue-600"> · {selectedVariation.label} ({selectedVariation.priceLabel})</span>}
+                    {" · "}
+                    {formatBookingDateShort(selectedDate)} às {selectedTime}
                   </div>
                 </div>
               )}
@@ -260,24 +297,25 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1">
-                  Nível Acadêmico{" "}
-                  <span className="text-slate-400 font-normal">(opcional)</span>
-                </label>
-                <select
-                  value={nivel}
-                  onChange={(e) => setNivel(e.target.value)}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white"
-                >
-                  <option value="">Selecione...</option>
-                  {NIVEL_OPTIONS.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* Show level selector in form only for services WITHOUT pre-set variations */}
+              {!service.hasVariations && (
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">
+                    Nível Acadêmico{" "}
+                    <span className="text-slate-400 font-normal">(opcional)</span>
+                  </label>
+                  <select
+                    value={nivel}
+                    onChange={(e) => setNivel(e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white"
+                  >
+                    <option value="">Selecione...</option>
+                    {NIVEL_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1">

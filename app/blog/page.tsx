@@ -1,32 +1,84 @@
 import type { Metadata } from "next";
-import { getAllPosts } from "@/lib/data";
+import { getAllPosts, SITE_URL } from "@/lib/data";
 import PostCard from "@/components/PostCard";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Análises de política internacional, geopolítica, diplomacia e relações internacionais.",
+  description:
+    "Análises de política internacional, geopolítica, diplomacia brasileira e relações internacionais contemporâneas por Maurício Kenyatta.",
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
+  openGraph: {
+    title: "Blog — Maurício Kenyatta",
+    description:
+      "Análises de política internacional, geopolítica e diplomacia.",
+  },
 };
 
 export default function BlogPage() {
   const posts = getAllPosts();
   const ptPosts = posts.filter((p) => p.language !== "en");
   const enPosts = posts.filter((p) => p.language === "en");
+
+  // Collect unique categories
+  const allCategories = Array.from(
+    new Set(ptPosts.flatMap((p) => p.categories))
+  ).slice(0, 8);
+
   return (
     <>
-      <section className="bg-gray-900 text-white py-14 px-4 text-center">
-        <h1 className="text-4xl font-extrabold mb-3">Blog</h1>
-        <p className="text-slate-300 max-w-xl mx-auto">Análises de política internacional, geopolítica e diplomacia</p>
-      </section>
-      <section className="py-12 px-4 max-w-5xl mx-auto">
-        <h2 className="text-lg font-bold text-gray-700 mb-6 uppercase tracking-wide text-sm">Artigos em Português ({ptPosts.length})</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
-          {ptPosts.map((post) => <PostCard key={post.id} post={post} />)}
+      {/* Hero */}
+      <section className="relative bg-[#0f172a] text-white overflow-hidden">
+        <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-4 py-16 md:py-22 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Blog</h1>
+          <p className="text-slate-300 max-w-xl mx-auto text-lg">
+            Análises de política internacional, geopolítica e diplomacia
+            brasileira
+          </p>
         </div>
+      </section>
+
+      {/* Category chips */}
+      {allCategories.length > 0 && (
+        <section className="bg-slate-50 border-b border-gray-100 py-4 px-4">
+          <div className="max-w-5xl mx-auto flex flex-wrap gap-2 justify-center">
+            {allCategories.map((cat) => (
+              <span
+                key={cat}
+                className="text-xs bg-white border border-gray-200 text-slate-600 px-3 py-1.5 rounded-full font-medium"
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="py-14 px-4 max-w-5xl mx-auto">
+        {/* Portuguese posts */}
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest">
+            Artigos em Português ({ptPosts.length})
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+          {ptPosts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
+
+        {/* English posts */}
         {enPosts.length > 0 && (
           <>
-            <h2 className="text-lg font-bold text-gray-700 mb-6 uppercase tracking-wide text-sm border-t border-gray-100 pt-8">Articles in English ({enPosts.length})</h2>
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest border-t border-gray-100 pt-10 mb-5">
+              Articles in English ({enPosts.length})
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {enPosts.map((post) => <PostCard key={post.id} post={post} />)}
+              {enPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
             </div>
           </>
         )}

@@ -1,0 +1,79 @@
+[
+  {
+    "id": "mentoria-academica-completa",
+    "slug": "mentoria-academica-completa",
+    "name": "Mentoria Acadêmica Completa",
+    "tagline": "Acompanhamento personalizado para destravar sua pesquisa e garantir seu sucesso acadêmico.",
+    "description": "Um acompanhamento personalizado destinado a estudantes de graduação, especialização, mestrado e doutorado. Inclui Planejamento do Projeto, Acompanhamento Regular, Orientação Personalizada, Feedback Detalhado, Gestão de Tempo e Rotina e Encerramento. Ideal para quem precisa de suporte integral ao longo da jornada acadêmica.",
+    "priceLabel": "A partir de R$100",
+    "duration": 60,
+    "icon": "🎓",
+    "category": "Mentoria"
+  },
+  {
+    "id": "suporte-escrita-capitulo",
+    "slug": "suporte-na-escrita-de-capitulo",
+    "name": "Suporte na Escrita de Capítulo",
+    "tagline": "Acelere sua produção com acompanhamento focado para escrever capítulos com clareza e coesão.",
+    "description": "Um serviço de acompanhamento focado na escrita de um capítulo específico da sua pesquisa — introdução, revisão de literatura, metodologia, análise ou conclusão. Inclui revisão e feedback detalhado, orientação para melhorar coesão e clareza, e sugestões para adequação às normas ABNT e APA.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "✍️",
+    "category": "Escrita"
+  },
+  {
+    "id": "estruturacao-marco-teorico",
+    "slug": "estruturacao-marco-teorico",
+    "name": "Estruturação de Marco Teórico",
+    "tagline": "Fortaleça a base da sua pesquisa com a escolha certa de autores e teorias relevantes.",
+    "description": "Serviço de mentoria pontual e especializado para auxiliar na seleção e organização da base teórica da sua pesquisa. Inclui orientação na escolha de autores e teorias, auxílio para conectar o marco teórico aos objetivos da pesquisa, e sugestões para estruturar a revisão de literatura com rigor acadêmico.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "📚",
+    "category": "Mentoria"
+  },
+  {
+    "id": "acompanhamento-de-fase",
+    "slug": "acompanhamento-de-fase",
+    "name": "Acompanhamento de Fase",
+    "tagline": "Supere os desafios de qualquer fase da sua pesquisa, otimizando seu tempo e recursos.",
+    "description": "Mentoria personalizada para ajudar o estudante a superar desafios em uma fase específica da pesquisa — qualificação, defesa, publicação ou ingresso em programas de pós-graduação. Inclui planejamento detalhado da fase, orientações práticas para gestão de tempo e recursos, e acompanhamento para verificação de progresso.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "📋",
+    "category": "Mentoria"
+  },
+  {
+    "id": "preparacao-defesa",
+    "slug": "preparacao-para-defesa",
+    "name": "Preparação para Defesa",
+    "tagline": "Apresente seu trabalho com confiança e clareza, pronto para sua qualificação ou defesa final.",
+    "description": "Ajuda completa para preparar e ensaiar sua apresentação para a banca de qualificação ou defesa. Inclui revisão de slides e material de apresentação, treinamento de oratória e postura, e simulação completa da apresentação para que você enfrente a banca com segurança e domínio do conteúdo.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "🏆",
+    "category": "Defesa"
+  },
+  {
+    "id": "mentoria-express",
+    "slug": "mentoria-express-de-pesquisa",
+    "name": "Mentoria Express de Pesquisa",
+    "tagline": "Estruture seu projeto de forma rápida e eficaz para sair do papel e ser aprovado.",
+    "description": "Programa focado e intensivo para resolver um problema específico da sua pesquisa de forma eficiente. Inclui Diagnóstico Inicial para identificar o principal bloqueio, Definição de Objetivos, Orientação Metodológica e Entrega Final com plano de ação. Ideal para destravar projetos e clarificar a argumentação central.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "⚡",
+    "category": "Mentoria"
+  },
+  {
+    "id": "definicao-metodologia",
+    "slug": "definicao-de-metodologia",
+    "name": "Definição de Metodologia",
+    "tagline": "Escolha e aplique a metodologia mais adequada para sua pesquisa, com segurança e rigor científico.",
+    "description": "Esta mentoria pontual oferece auxílio para definir e aplicar a metodologia mais adequada à sua pesquisa, incluindo o desenvolvimento de instrumentos para coleta e análise de dados. É ideal para estudantes de todos os níveis (graduação, mestrado, especialização e doutorado) que estão com dificuldades na seção de metodologia ou que desejam aprimorar a utilização de um método de pesquisa específico.",
+    "priceLabel": "A partir de R$100",
+    "duration": 90,
+    "icon": "🔬",
+    "category": "Metodologia"
+  }
+]

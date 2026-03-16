@@ -12,3 +12,15 @@ export interface Post {
   language: string | null
   image: string | null
 }
+
+export interface Service {
+  id: string
+  name: string
+  slug: string
+  category: string
+  description: string
+  tagline: string
+  priceLabel: string
+  icon: string
+  duration: number // minutes
+}

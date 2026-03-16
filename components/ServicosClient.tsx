@@ -1,0 +1,125 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import type { Service } from "@/lib/types";
+import AgendarDrawer from "./booking/AgendarDrawer";
+
+interface ServicosClientProps {
+  services: Service[];
+}
+
+const CATEGORY_COLORS: Record<string, string> = {
+  Mentoria: "bg-blue-50 text-blue-700 border-blue-200",
+  Escrita: "bg-purple-50 text-purple-700 border-purple-200",
+  Defesa: "bg-amber-50 text-amber-700 border-amber-200",
+  Metodologia: "bg-green-50 text-green-700 border-green-200",
+};
+
+function categoryClass(cat: string) {
+  return CATEGORY_COLORS[cat] ?? "bg-slate-50 text-slate-700 border-slate-200";
+}
+
+export default function ServicosClient({ services }: ServicosClientProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activeService, setActiveService] = useState<Service | null>(null);
+
+  // Read ?agendar=slug from URL
+  useEffect(() => {
+    const slug = searchParams.get("agendar");
+    if (slug) {
+      const found = services.find((s) => s.slug === slug);
+      setActiveService(found ?? null);
+    } else {
+      setActiveService(null);
+    }
+  }, [searchParams, services]);
+
+  function openDrawer(service: Service) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("agendar", service.slug);
+    router.push(`?${params.toString()}`, { scroll: false });
+  }
+
+  function closeDrawer() {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("agendar");
+    const qs = params.toString();
+    router.push(qs ? `?${qs}` : "/servicos", { scroll: false });
+    setActiveService(null);
+  }
+
+  const categories = Array.from(new Set(services.map((s) => s.category)));
+
+  return (
+    <>
+      {/* Category filter */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {categories.map((cat) => (
+          <span
+            key={cat}
+            className={`text-xs font-semibold border px-3 py-1.5 rounded-full ${categoryClass(cat)}`}
+          >
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      {/* Services grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {services.map((service) => (
+          <div
+            key={service.id}
+            className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-md hover:border-blue-200 transition-all flex flex-col"
+          >
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-3xl w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl flex-shrink-0">
+                {service.icon}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className={`text-xs font-semibold border px-2 py-0.5 rounded ${categoryClass(service.category)}`}
+                  >
+                    {service.category}
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    {service.duration} min
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-900 text-base leading-tight">
+                  {service.name}
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-blue-700 font-medium text-sm italic mb-2">
+              {service.tagline}
+            </p>
+
+            <p className="text-slate-500 text-sm leading-relaxed flex-1 mb-5">
+              {service.description}
+            </p>
+
+            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+              <span className="text-blue-600 font-bold text-base">
+                {service.priceLabel}
+              </span>
+              <button
+                type="button"
+                onClick={() => openDrawer(service)}
+                className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-lg text-sm transition-colors shadow-sm shadow-blue-600/20"
+              >
+                Agendar
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Booking drawer */}
+      <AgendarDrawer service={activeService} onClose={closeDrawer} />
+    </>
+  );
+}

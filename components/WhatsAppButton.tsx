@@ -1,6 +1,6 @@
 "use client";
 
-import { WHATSAPP_NUMBER } from "@/lib/data";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 
 const DEFAULT_MESSAGE =
   "Olá, Maurício! Gostaria de saber mais sobre as mentorias em Relações Internacionais. 🎓";

@@ -16,23 +16,21 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
-}
+export const revalidate = 60
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: post.title,
-    description: post.excerpt ?? undefined,
+    title: post.seo_title ?? post.title,
+    description: post.seo_description ?? post.excerpt ?? undefined,
     alternates: {
       canonical: `${SITE_URL}/blog/${post.slug}`,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt ?? undefined,
+      title: post.seo_title ?? post.title,
+      description: post.seo_description ?? post.excerpt ?? undefined,
       images: post.image ? [post.image] : [],
       type: "article",
       publishedTime: post.firstPublishedDate ?? undefined,
@@ -45,10 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
-  const allPosts = getAllPosts();
+  const allPosts = await getAllPosts();
   const related = allPosts
     .filter(
       (p) =>
@@ -111,7 +109,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="relative w-full h-72 md:h-96 bg-gray-100">
           <Image
             src={post.image}
-            alt={post.title}
+            alt={post.image_alt ?? post.title}
             fill
             className="object-cover"
             priority
@@ -119,29 +117,36 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       )}
 
-      {/* Read full article CTA */}
+      {/* Article body or fallback */}
       <section className="py-12 px-4 max-w-3xl mx-auto">
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center mb-10">
-          <div className="text-4xl mb-4">📖</div>
-          <h2 className="text-xl font-bold text-gray-900 mb-3">
-            Leia o artigo completo
-          </h2>
-          <p className="text-gray-600 mb-6 text-sm">
-            O conteúdo completo está disponível no blog original de Maurício
-            Kenyatta.
-          </p>
-          <a
-            href={wixUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3 rounded-lg transition-colors inline-block"
-          >
-            Ler artigo completo →
-          </a>
-        </div>
+        {post.content ? (
+          <article
+            className="prose prose-lg max-w-none prose-headings:text-[#0f172a] prose-a:text-blue-600"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+        ) : (
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center mb-10">
+            <div className="text-4xl mb-4">📖</div>
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
+              Leia o artigo completo
+            </h2>
+            <p className="text-gray-600 mb-6 text-sm">
+              O conteúdo completo está disponível no blog original de Maurício
+              Kenyatta.
+            </p>
+            <a
+              href={wixUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3 rounded-lg transition-colors inline-block"
+            >
+              Ler artigo completo →
+            </a>
+          </div>
+        )}
 
         {/* Mentoria CTA */}
-        <div className="bg-[#0f172a] rounded-2xl p-8 text-center text-white">
+        <div className="mt-10 bg-[#0f172a] rounded-2xl p-8 text-center text-white">
           <div className="text-3xl mb-3">🎓</div>
           <h2 className="text-xl font-bold mb-2">
             Gostou? Agende uma mentoria!

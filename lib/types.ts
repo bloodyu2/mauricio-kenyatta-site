@@ -3,14 +3,19 @@ export interface Post {
   slug: string
   title: string
   excerpt: string | null
-  firstPublishedDate: string | null
-  lastPublishedDate: string | null
+  content: string | null
+  image: string | null
+  image_alt: string | null
+  categories: string[]
+  categoryIds: string[]
+  language: string | null
   featured: boolean | null
   minutesToRead: number | null
-  categoryIds: string[]
-  categories: string[]
-  language: string | null
-  image: string | null
+  status: string | null
+  seo_title: string | null
+  seo_description: string | null
+  firstPublishedDate: string | null
+  lastPublishedDate: string | null
 }
 
 export interface Service {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Post } from "@/lib/types";
-import { formatDate } from "@/lib/data";
+import { formatDate } from "@/lib/constants";
 
 interface PostCardProps {
   post: Post;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { SITE_NAME } from "@/lib/data";
+import Logo from "./Logo";
 
 const navLinks = [
   { href: "/", label: "Início" },
@@ -17,17 +17,18 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="font-bold text-lg text-slate-900 tracking-tight hover:text-blue-600 transition-colors flex-shrink-0"
-        >
-          {SITE_NAME}
+      <div className="max-w-5xl mx-auto px-4 py-3 grid grid-cols-[auto_1fr_auto] items-center gap-4">
+        {/* Logo — left */}
+        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
+          <Logo size="sm" />
+          <span className="font-bold text-sm text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors hidden sm:block leading-tight">
+            Maurício<br />
+            <span className="text-blue-600">Kenyatta</span>
+          </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-5 flex-1">
+        {/* Desktop nav — centered */}
+        <nav className="hidden md:flex items-center justify-center gap-6">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -39,37 +40,39 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* CTA — desktop */}
-        <Link
-          href="/servicos"
-          className="hidden md:inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-colors flex-shrink-0"
-        >
-          Agendar
-        </Link>
+        {/* CTA + hamburger — right */}
+        <div className="flex items-center gap-2 justify-end">
+          <Link
+            href="/servicos"
+            className="hidden md:inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-4 py-2 rounded-lg transition-colors flex-shrink-0"
+          >
+            Agendar
+          </Link>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden p-2 flex flex-col gap-1.5 ml-auto"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-        >
-          <span
-            className={`block w-5 h-0.5 bg-slate-700 transition-transform duration-200 ${
-              open ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-slate-700 transition-opacity duration-200 ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-slate-700 transition-transform duration-200 ${
-              open ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
-        </button>
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden p-2 flex flex-col gap-1.5"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+          >
+            <span
+              className={`block w-5 h-0.5 bg-slate-700 transition-transform duration-200 ${
+                open ? "translate-y-2 rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-slate-700 transition-opacity duration-200 ${
+                open ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-5 h-0.5 bg-slate-700 transition-transform duration-200 ${
+                open ? "-translate-y-2 -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

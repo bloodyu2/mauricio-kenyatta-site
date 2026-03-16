@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getRecentPosts, getAllServices } from "@/lib/data";
 import PostCard from "@/components/PostCard";
 
-export default function HomePage() {
-  const recent = getRecentPosts(3);
+export default async function HomePage() {
+  const recent = await getRecentPosts(3);
   const services = getAllServices().slice(0, 4);
 
   return (

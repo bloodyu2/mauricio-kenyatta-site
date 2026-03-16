@@ -7,7 +7,7 @@ import {
   buildWhatsAppMessage,
   formatBookingDateShort,
 } from "@/lib/booking";
-import { WHATSAPP_NUMBER } from "@/lib/data";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 import CalendarPicker from "./CalendarPicker";
 import TimeSlotPicker from "./TimeSlotPicker";
 

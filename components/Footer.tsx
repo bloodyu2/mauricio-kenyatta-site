@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE_NAME, CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from "@/lib/data";
+import { SITE_NAME, CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();

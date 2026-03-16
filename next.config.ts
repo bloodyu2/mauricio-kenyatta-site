@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "static.wixstatic.com",
       },
+      {
+        protocol: "https",
+        hostname: "tsmnlglaizuuikwllpdq.supabase.co",
+      },
     ],
   },
   async redirects() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from "@/lib/data";
+import { CONTACT_EMAIL, INSTAGRAM, LINKEDIN } from "@/lib/constants";
 
 export default function ContatoClient() {
   const [nome, setNome] = useState("");

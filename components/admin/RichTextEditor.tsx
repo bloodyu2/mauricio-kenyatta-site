@@ -3,6 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import LinkExt from '@tiptap/extension-link'
 import ImageExt from '@tiptap/extension-image'
+import { Link2, Image } from 'lucide-react'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useEffect, useState } from 'react'
 
@@ -134,11 +135,11 @@ export default function RichTextEditor({
           onClick={() => { setShowLinkInput(!showLinkInput); setShowImageInput(false) }}
           active={editor.isActive('link')}
           title="Inserir link"
-        >🔗</Btn>
+        ><Link2 size={14} /></Btn>
         <Btn
           onClick={() => { setShowImageInput(!showImageInput); setShowLinkInput(false) }}
           title="Inserir imagem"
-        >🖼</Btn>
+        ><Image size={14} /></Btn>
         <span className="w-px h-5 bg-gray-300 mx-1" />
         <Btn
           onClick={() => editor.chain().focus().toggleBulletList().run()}

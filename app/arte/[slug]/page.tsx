@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Artwork } from "@/lib/types";
 import { SITE_URL } from "@/lib/data";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { Palette, Package, MessageCircle } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -161,15 +162,15 @@ export default async function ArtePage({ params }: Props) {
 
             <div className="mt-6 bg-slate-50 rounded-xl border border-slate-200 p-4 text-sm text-slate-600 space-y-1.5">
               <div className="flex items-start gap-2">
-                <span>🎨</span>
+                <Palette size={16} className="text-[#f59e0b] flex-shrink-0 mt-0.5" />
                 <span>Obra original criada por Maurício Kenyatta</span>
               </div>
               <div className="flex items-start gap-2">
-                <span>📦</span>
+                <Package size={16} className="text-[#f59e0b] flex-shrink-0 mt-0.5" />
                 <span>Combinações de entrega/retirada tratadas diretamente</span>
               </div>
               <div className="flex items-start gap-2">
-                <span>💬</span>
+                <MessageCircle size={16} className="text-[#f59e0b] flex-shrink-0 mt-0.5" />
                 <span>Dúvidas e encomendas via WhatsApp</span>
               </div>
             </div>

@@ -308,14 +308,14 @@ export default function BlogPostEditor({ post }: Props) {
                     onClick={() => setLanguage('pt')}
                     className={`flex-1 py-1.5 font-semibold transition-colors ${language === 'pt' ? 'bg-blue-600 text-white' : 'hover:bg-gray-50 text-gray-600'}`}
                   >
-                    🇧🇷 Português
+                    PT Português
                   </button>
                   <button
                     type="button"
                     onClick={() => setLanguage('en')}
                     className={`flex-1 py-1.5 font-semibold transition-colors ${language === 'en' ? 'bg-blue-600 text-white' : 'hover:bg-gray-50 text-gray-600'}`}
                   >
-                    🇺🇸 English
+                    EN English
                   </button>
                 </div>
               </div>

@@ -13,36 +13,60 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "Maurício Kenyatta | Mentoria Acadêmica e Carreira em Relações Internacionais",
+      "Maurício Kenyatta | Mentoria de TCC, Dissertação e Relações Internacionais — Brasília",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Transforme sua trajetória acadêmica. Mentoria e consultoria em Relações Internacionais por Maurício Kenyatta, doutorando pela UnB.",
+    "Mentoria para TCC, dissertação e tese em Relações Internacionais com Maurício Kenyatta, doutorando pela UnB. Consultoria acadêmica personalizada em Brasília e online.",
   keywords: [
-    "relações internacionais",
-    "mentoria acadêmica",
+    "mentoria TCC",
+    "orientação dissertação",
+    "mentoria acadêmica Brasília",
+    "relações internacionais UnB",
+    "orientação tese",
+    "consultoria acadêmica",
     "geopolítica",
     "diplomacia brasileira",
     "Maurício Kenyatta",
-    "UnB",
-    "pesquisa acadêmica",
-    "metodologia",
+    "metodologia de pesquisa",
+    "defesa de dissertação",
+    "carreira acadêmica",
   ],
   openGraph: {
     type: "website",
     locale: "pt_BR",
+    url: SITE_URL,
     siteName: SITE_NAME,
-    images: ["/og-default.png"],
+    title:
+      "Maurício Kenyatta | Mentoria de TCC, Dissertação e Relações Internacionais",
+    description:
+      "Mentoria para TCC, dissertação e tese em Relações Internacionais com Maurício Kenyatta, doutorando pela UnB. Atendimento em Brasília e online.",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Maurício Kenyatta — Mentoria Acadêmica em Relações Internacionais",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title:
+      "Maurício Kenyatta | Mentoria de TCC, Dissertação e Relações Internacionais",
+    description:
+      "Mentoria para TCC, dissertação e tese em Relações Internacionais com Maurício Kenyatta, doutorando pela UnB.",
+    images: ["/og-default.png"],
   },
   robots: {
     index: true,
     follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
   },
   alternates: {
-    canonical: "/",
+    canonical: SITE_URL,
   },
 };
 

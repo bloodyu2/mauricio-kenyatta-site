@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Post } from "@/lib/types";
 import { formatDate } from "@/lib/constants";
+import { Globe } from "lucide-react";
 
 interface PostCardProps {
   post: Post;
@@ -30,8 +31,8 @@ export default function PostCard({ post, featured = false }: PostCardProps) {
             sizes="(max-width: 768px) 100vw, 40vw"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-4xl bg-slate-50">
-            🌐
+          <div className="w-full h-full flex items-center justify-center bg-slate-50">
+            <Globe size={40} className="text-[#f59e0b] opacity-50" />
           </div>
         )}
       </div>

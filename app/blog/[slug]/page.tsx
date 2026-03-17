@@ -11,6 +11,7 @@ import {
 } from "@/lib/data";
 import { blogPostingSchema } from "@/lib/schema";
 import PostCard from "@/components/PostCard";
+import { BookOpen, GraduationCap } from "lucide-react";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -126,7 +127,7 @@ export default async function BlogPostPage({ params }: Props) {
           />
         ) : (
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-center mb-10">
-            <div className="text-4xl mb-4">📖</div>
+            <div className="flex justify-center mb-4"><BookOpen size={40} className="text-[#f59e0b]" /></div>
             <h2 className="text-xl font-bold text-gray-900 mb-3">
               Leia o artigo completo
             </h2>
@@ -147,7 +148,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Mentoria CTA */}
         <div className="mt-10 bg-[#0f172a] rounded-2xl p-8 text-center text-white">
-          <div className="text-3xl mb-3">🎓</div>
+          <div className="flex justify-center mb-3"><GraduationCap size={36} className="text-[#f59e0b]" /></div>
           <h2 className="text-xl font-bold mb-2">
             Gostou? Agende uma mentoria!
           </h2>

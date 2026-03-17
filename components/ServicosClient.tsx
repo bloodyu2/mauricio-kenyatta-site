@@ -4,6 +4,31 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Service } from "@/lib/types";
 import AgendarDrawer from "./booking/AgendarDrawer";
+import {
+  GraduationCap,
+  Zap,
+  FileText,
+  FlaskConical,
+  FileCheck,
+  PenLine,
+  BookOpen,
+  ClipboardList,
+  Trophy,
+  Sparkles,
+} from "lucide-react";
+
+const SERVICE_ICON_MAP: Record<string, React.ElementType> = {
+  "mentoria-academica-completa": GraduationCap,
+  "mentoria-express": Zap,
+  "revisao-de-projetos": FileText,
+  "consultoria-em-metodologia": FlaskConical,
+  "revisao-de-artigo-cientifico": FileCheck,
+  "suporte-escrita-capitulo": PenLine,
+  "estruturacao-marco-teorico": BookOpen,
+  "acompanhamento-de-fase": ClipboardList,
+  "preparacao-defesa": Trophy,
+  "definicao-metodologia": FlaskConical,
+};
 
 interface ServicosClientProps {
   services: Service[];
@@ -74,8 +99,8 @@ export default function ServicosClient({ services }: ServicosClientProps) {
             className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-md hover:border-blue-200 transition-all flex flex-col"
           >
             <div className="flex items-start gap-4 mb-4">
-              <div className="text-3xl w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl flex-shrink-0">
-                {service.icon}
+              <div className="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl flex-shrink-0">
+                {(() => { const Icon = SERVICE_ICON_MAP[service.id] ?? Sparkles; return <Icon size={22} className="text-[#f59e0b]" />; })()}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">

@@ -114,7 +114,7 @@ export default function AdminBlogClient({ posts: initialPosts }: Props) {
                 langFilter === l ? 'bg-slate-800 text-white' : 'hover:bg-gray-50 text-gray-600'
               }`}
             >
-              {l === 'all' ? 'PT + EN' : l === 'pt' ? '🇧🇷 PT' : '🇺🇸 EN'}
+              {l === 'all' ? 'PT + EN' : l === 'pt' ? 'PT' : 'EN'}
             </button>
           ))}
         </div>
@@ -150,7 +150,7 @@ export default function AdminBlogClient({ posts: initialPosts }: Props) {
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell">
                   <span className="text-xs text-gray-500">
-                    {post.language === 'en' ? '🇺🇸 EN' : '🇧🇷 PT'}
+                    {post.language === 'en' ? 'EN' : 'PT'}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-gray-500 text-xs hidden md:table-cell">

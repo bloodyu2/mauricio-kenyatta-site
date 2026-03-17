@@ -2,6 +2,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { GraduationCap } from 'lucide-react'
 
 function LoginForm() {
   const router = useRouter()
@@ -28,7 +29,7 @@ function LoginForm() {
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
         <div className="text-center mb-8">
-          <div className="text-3xl mb-2">🎓</div>
+          <div className="flex justify-center mb-2"><GraduationCap size={32} className="text-[#f59e0b]" /></div>
           <h1 className="text-2xl font-extrabold text-[#0f172a] mb-1">Painel Admin</h1>
           <p className="text-gray-500 text-sm">Maurício Kenyatta — Acesso restrito</p>
         </div>

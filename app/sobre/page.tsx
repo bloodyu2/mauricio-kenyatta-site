@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/data";
+import { GraduationCap, FlaskConical, BookOpen, BarChart3, Trophy } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Sobre",
@@ -20,34 +21,34 @@ export const metadata: Metadata = {
 
 const qualifications = [
   {
-    icon: "🎓",
+    Icon: GraduationCap,
     title: "Doutorando em RI pela UnB",
     detail:
       "Com período sanduíche na Universidade de Gante, Bélgica",
   },
   {
-    icon: "🎓",
+    Icon: GraduationCap,
     title: "Mestre em RI pela UnB",
     detail: "Foco em Segurança e Defesa na Fronteira",
   },
   {
-    icon: "🔬",
+    Icon: FlaskConical,
     title: "Coordenador de Pesquisa — GEPSI-UnB",
     detail: "Grupo de Estudos e Pesquisa em Segurança Internacional",
   },
   {
-    icon: "📖",
+    Icon: BookOpen,
     title: "Docente Universitário — Centro Universitário UDF",
     detail:
       "Segurança Internacional, Análise de Política Externa Brasileira, Integração Regional",
   },
   {
-    icon: "📊",
+    Icon: BarChart3,
     title: "Pesquisador — IPEA",
     detail: "Políticas para fronteiras, defesa e indústria nacional",
   },
   {
-    icon: "🏆",
+    Icon: Trophy,
     title: "Prêmio: Melhor Pôster",
     detail: "I Encontro Distrital da ABED",
   },
@@ -138,8 +139,8 @@ export default function SobrePage() {
                 key={q.title}
                 className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex gap-4 items-start hover:border-blue-200 transition-colors"
               >
-                <div className="text-2xl w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg flex-shrink-0">
-                  {q.icon}
+                <div className="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg flex-shrink-0">
+                  <q.Icon size={20} className="text-[#f59e0b]" />
                 </div>
                 <div>
                   <div className="font-bold text-slate-900 mb-0.5">

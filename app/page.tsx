@@ -1,6 +1,51 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getRecentPosts, getAllServices } from "@/lib/data";
 import PostCard from "@/components/PostCard";
+import { SITE_URL } from "@/lib/data";
+import {
+  GraduationCap,
+  Zap,
+  FileText,
+  FlaskConical,
+  FileCheck,
+  PenLine,
+  BookOpen,
+  ClipboardList,
+  Trophy,
+  Sparkles,
+} from "lucide-react";
+
+const SERVICE_ICON_MAP: Record<string, React.ElementType> = {
+  "mentoria-academica-completa": GraduationCap,
+  "mentoria-express": Zap,
+  "revisao-de-projetos": FileText,
+  "consultoria-em-metodologia": FlaskConical,
+  "revisao-de-artigo-cientifico": FileCheck,
+  "suporte-escrita-capitulo": PenLine,
+  "estruturacao-marco-teorico": BookOpen,
+  "acompanhamento-de-fase": ClipboardList,
+  "preparacao-defesa": Trophy,
+  "definicao-metodologia": FlaskConical,
+};
+
+export const metadata: Metadata = {
+  title:
+    "Maurício Kenyatta | Mentoria de TCC, Dissertação e Relações Internacionais — Brasília",
+  description:
+    "Mentoria para TCC, dissertação e tese em Relações Internacionais com Maurício Kenyatta, doutorando pela UnB. Consultoria acadêmica personalizada em Brasília e online.",
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    title:
+      "Maurício Kenyatta | Mentoria de TCC, Dissertação e Relações Internacionais",
+    description:
+      "Mentoria para TCC, dissertação e tese em Relações Internacionais com Maurício Kenyatta, doutorando pela UnB. Atendimento em Brasília e online.",
+    url: SITE_URL,
+    images: ["/og-default.png"],
+  },
+};
 
 export default async function HomePage() {
   const recent = await getRecentPosts(3);
@@ -108,8 +153,8 @@ export default async function HomePage() {
                 className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-md hover:border-blue-200 transition-all group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="text-3xl w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl flex-shrink-0">
-                    {service.icon}
+                  <div className="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl flex-shrink-0">
+                    {(() => { const Icon = SERVICE_ICON_MAP[service.id] ?? Sparkles; return <Icon size={22} className="text-[#f59e0b]" />; })()}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">

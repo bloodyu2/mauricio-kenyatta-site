@@ -10,6 +10,7 @@ import {
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import CalendarPicker from "./CalendarPicker";
 import TimeSlotPicker from "./TimeSlotPicker";
+import { Sparkles, X } from "lucide-react";
 
 interface AgendarDrawerProps {
   service: Service | null;
@@ -129,7 +130,7 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
         <div className="bg-[#0f172a] text-white px-5 py-4 flex-shrink-0">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2">
-              <span className="text-2xl">{service.icon}</span>
+              <Sparkles size={22} className="text-[#f59e0b]" />
               <div>
                 <div className="text-xs text-blue-300 font-semibold uppercase tracking-wide">
                   {service.category}
@@ -145,7 +146,7 @@ export default function AgendarDrawer({ service, onClose }: AgendarDrawerProps) 
               className="text-slate-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors flex-shrink-0"
               aria-label="Fechar"
             >
-              ✕
+              <X size={16} />
             </button>
           </div>
           <div className="flex items-center gap-3 text-sm">

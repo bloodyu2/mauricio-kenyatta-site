@@ -4,6 +4,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { Artwork } from "@/lib/types";
 import { SITE_URL } from "@/lib/data";
+import { Palette } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -55,7 +56,7 @@ export default async function ArtePage() {
       <section className="py-16 px-4 max-w-6xl mx-auto">
         {artworks.length === 0 ? (
           <div className="text-center py-20 text-slate-400">
-            <p className="text-5xl mb-4">🎨</p>
+            <div className="flex justify-center mb-4"><Palette size={52} className="text-[#f59e0b] opacity-60" /></div>
             <p className="text-lg font-semibold">Nenhuma obra disponível no momento.</p>
             <p className="text-sm mt-2">Volte em breve para conferir as novidades.</p>
           </div>

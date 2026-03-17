@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Artwork } from "@/lib/types";
 import { createClient } from "@/lib/supabase/client";
+import { Palette, Trash2 } from "lucide-react";
 
 interface Props {
   artworks: Artwork[];
@@ -61,7 +62,7 @@ export default function AdminArteClient({ artworks: initial }: Props) {
 
       {artworks.length === 0 ? (
         <div className="text-center py-20 bg-slate-50 rounded-2xl border border-gray-200">
-          <p className="text-5xl mb-4">🎨</p>
+          <div className="flex justify-center mb-4"><Palette size={52} className="text-[#f59e0b] opacity-60" /></div>
           <p className="text-slate-600 font-semibold">Nenhuma obra cadastrada ainda.</p>
           <Link href="/admin/arte/new" className="mt-4 inline-block bg-blue-600 text-white font-bold px-5 py-2.5 rounded-lg text-sm hover:bg-blue-500 transition-colors">
             Criar primeira obra
@@ -126,7 +127,7 @@ export default function AdminArteClient({ artworks: initial }: Props) {
                     disabled={deleting === artwork.id}
                     className="py-2 px-3 rounded-lg text-xs font-bold bg-red-50 text-red-600 hover:bg-red-100 transition-colors disabled:opacity-50"
                   >
-                    {deleting === artwork.id ? "..." : "🗑"}
+                    {deleting === artwork.id ? "..." : <Trash2 size={14} />}
                   </button>
                 </div>
 

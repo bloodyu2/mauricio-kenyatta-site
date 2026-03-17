@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Service } from "@/lib/types";
 import AgendarDrawer from "./booking/AgendarDrawer";
+import ServiceDetailSheet from "./ServiceDetailSheet";
 import {
   GraduationCap,
   Zap,
@@ -49,8 +50,9 @@ export default function ServicosClient({ services }: ServicosClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeService, setActiveService] = useState<Service | null>(null);
+  const [detailService, setDetailService] = useState<Service | null>(null);
 
-  // Read ?agendar=slug from URL
+  // Sincronizar ?agendar=slug com estado
   useEffect(() => {
     const slug = searchParams.get("agendar");
     if (slug) {
@@ -61,8 +63,34 @@ export default function ServicosClient({ services }: ServicosClientProps) {
     }
   }, [searchParams, services]);
 
+  // Sincronizar ?ver=slug com estado
+  useEffect(() => {
+    const slug = searchParams.get("ver");
+    if (slug) {
+      const found = services.find((s) => s.slug === slug);
+      setDetailService(found ?? null);
+    } else {
+      setDetailService(null);
+    }
+  }, [searchParams, services]);
+
+  function openDetail(service: Service) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("agendar");
+    params.set("ver", service.slug);
+    router.push(`?${params.toString()}`, { scroll: false });
+  }
+
+  function closeDetail() {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("ver");
+    const qs = params.toString();
+    router.push(qs ? `?${qs}` : "/servicos", { scroll: false });
+  }
+
   function openDrawer(service: Service) {
     const params = new URLSearchParams(searchParams.toString());
+    params.delete("ver");
     params.set("agendar", service.slug);
     router.push(`?${params.toString()}`, { scroll: false });
   }
@@ -133,15 +161,24 @@ export default function ServicosClient({ services }: ServicosClientProps) {
               </span>
               <button
                 type="button"
-                onClick={() => openDrawer(service)}
+                onClick={() => openDetail(service)}
                 className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-lg text-sm transition-colors shadow-sm shadow-blue-600/20"
               >
-                Agendar
+                Ver detalhes
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Service Detail Sheet */}
+      {detailService && (
+        <ServiceDetailSheet
+          service={detailService}
+          onClose={closeDetail}
+          onBook={() => openDrawer(detailService)}
+        />
+      )}
 
       {/* Booking drawer */}
       <AgendarDrawer service={activeService} onClose={closeDrawer} />

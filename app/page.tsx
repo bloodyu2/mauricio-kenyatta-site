@@ -176,10 +176,10 @@ export default async function HomePage() {
                         {service.priceLabel}
                       </span>
                       <Link
-                        href={`/servicos?agendar=${service.slug}`}
+                        href={`/servicos?ver=${service.slug}`}
                         className="text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 px-3 py-1.5 rounded-lg transition-colors"
                       >
-                        Agendar
+                        Ver detalhes
                       </Link>
                     </div>
                   </div>
